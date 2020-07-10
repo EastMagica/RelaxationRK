@@ -6,41 +6,27 @@
 # @project   : RelaxationRK
 # @software  : VSCode
 
-import sys
-
-import numpy as np
 import matplotlib.pyplot as plt
-import matplotlib.animation as anm
 
-from RRK.basic import rk4
+from rkp.rk import rk4
 
-# sys.path.append("C:\\CodeLibrary\\Python\\RelaxationRK\\RRK")
+from basicFunc import fun_fut, u0
+
 
 # Example Functions
 # ------------------
 
-def f(t, y):
-    return np.array([
-        y[0] * (1 - y[1]),
-        y[1] * (y[0] - 1)
-    ])
-
 t0 = 0.0
-y0 = np.array([1.0, 2.0])
-
-h = 1e-3
-
-step = 50000
+h = 0.085
+step = 500
 
 
 # RK Method
 # ----------
 
+y_array = rk4(fun_fut, t0, u0, h, step)
 
 fig, ax = plt.subplots()
-
-y_array = rk4(f, t0, y0, h, step)
-
-ax.scatter(y_array[:, 0], y_array[:, 1], s=1)
+ax.scatter(*y_array.T, s=5)
 
 plt.show()
