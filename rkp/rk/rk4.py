@@ -28,24 +28,25 @@ bt_rk4_exp = {
 }
 
 
-def rk4_exp_cell(f, t0, y0, h, dim=1):
+def rk4_exp_cell(f, t0, u0, h, dim=1):
     k = np.zeros((4, dim))
 
-    for j in range(4):
-        k[j, :] = f(
-            t0 + bt_rk4_exp["c"][j] * h,
-            y0 + h * bt_rk4_exp["a"][j, :] @ k
+    for i in range(4):
+        k[i, :] = f(
+            t0 + bt_rk4_exp["c"][i] * h,
+            u0 + h * bt_rk4_exp["a"][i, :] @ k
         )
-    return y0 + h * bt_rk4_exp["b"] @ k
+    return u0 + h * bt_rk4_exp["b"] @ k
 
 
-def rk4_exp(f, t0, y0, h, step=1):
-    n_dim = len(y0)
+def rk4_exp(f, t0, u0, h, step=1):
+    n_dim = len(u0)
+    t_array = np.arange(1, step+1) * h
     y_array = np.zeros((step, n_dim))
     for i in range(step):
-        y0 = rk4_exp_cell(f, t0, y0, h, n_dim)
+        u0 = rk4_exp_cell(f, t0, u0, h, n_dim)
         t0 += h
-        y_array[i, :] = y0
-    return y_array
+        y_array[i, :] = u0
+    return t_array, y_array
 
 

@@ -8,9 +8,10 @@
 
 import matplotlib.pyplot as plt
 
-from scipy.integrate import odeint, solve_ivp
+# odeint (old), solve_ivp (new)
+from scipy.integrate import solve_ivp
 
-from basicFunc import fun_fut, fun_ftu, u0
+from basicFunc import fun_f, u0
 
 
 # Example Functions
@@ -26,7 +27,7 @@ step = 100
 
 # sol = odeint(fun_f, y0, np.arange(step+1)*h)
 sol = solve_ivp(
-    fun=fun_ftu, t_span=(0.0, 85), y0=u0, method="RK45"
+    fun=fun_f, t_span=(0.0, 85), y0=u0, method="RK45"
 )
 
 fig, ax = plt.subplots()

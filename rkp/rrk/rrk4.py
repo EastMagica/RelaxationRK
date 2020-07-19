@@ -41,24 +41,26 @@ def rk4_relax_cell(f, t0, y0, h, gamma, dim=1):
     return y0 + gamma * h * bt_rk4_exp["b"] @ k
 
 
-def rk4_relax(f, t0, y0, h, fun_h, step=1):
+def rk4_relax(f, t0, y0, h, fun_he, step=1):
     n_dim = len(y0)
+    t_array = np.zeros(step)
     y_array = np.zeros((step, n_dim))
     for i in range(step):
         sol = root(
-            lambda gam: fun_h(rk4_relax_cell(f, t0, y0, h, gam, n_dim)),
-            x0=np.zeros(1, dtype=np.float),
+            lambda gam: fun_he(rk4_relax_cell(f, t0, y0, h, gam, n_dim)),
+            x0=np.ones(1, dtype=np.float64),
             method="hybr",
             options={
                 "xtol": 1e-14
             }
         )
-        print("sol:\n", sol)
         gamma = sol.x[0]
         y0 = rk4_relax_cell(f, t0, y0, h, gamma, n_dim)
+        print("sol:\n", sol)
         print("-" * 64)
         print("y0:", y0)
         print("-" * 64)
         t0 += gamma * h
+        t_array[i] = t0
         y_array[i, :] = y0
-    return y_array
+    return t_array, y_array

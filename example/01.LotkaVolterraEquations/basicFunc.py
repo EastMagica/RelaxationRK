@@ -12,14 +12,7 @@ import numpy as np
 u0 = np.array([1.0, 2.0])
 
 
-def fun_fut(u, t):
-    return np.array([
-        u[0] * (1 - u[1]),
-        u[1] * (u[0] - 1)
-    ])
-
-
-def fun_ftu(t, u):
+def fun_f(t, u):
     return np.array([
         u[0] * (1 - u[1]),
         u[1] * (u[0] - 1)
@@ -27,13 +20,10 @@ def fun_ftu(t, u):
 
 
 def fun_h(u):
-    return u[0] - np.log(u[0]) + u[1] - np.log(u[1])
+    return u[..., 0] - np.log(u[..., 0]) + u[..., 1] - np.log(u[..., 1])
 
 
 def fun_he(u):
-    h0 = fun_h(u0)
-    return fun_h(u) - h0
-
-
-
+    he0 = fun_h(u0)
+    return he0 - fun_h(u)
 
