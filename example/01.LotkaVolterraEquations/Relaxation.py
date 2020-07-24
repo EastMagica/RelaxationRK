@@ -8,7 +8,7 @@
 
 import matplotlib.pyplot as plt
 
-from rkp.rrk.rrk4 import rk4_relax
+from rkp.rrk import rk_relax
 
 from basicFunc import fun_f, u0, fun_he
 
@@ -17,16 +17,16 @@ from basicFunc import fun_f, u0, fun_he
 # ------------------
 
 t0 = 0.0
-h = 0.85
+dt = 0.85
 step = 200
 
 
 # RK Method
 # ----------
 
-t_array, y_array = rk4_relax(fun_f, t0, u0, h, fun_he, step)
+t_array, u_array, gamma_array = rk_relax(fun_f, t0, u0, dt, fun_he, step)
 
-he_array = fun_he(y_array)
+he_array = fun_he(u_array)
 
 
 # Plot Solution
@@ -34,7 +34,7 @@ he_array = fun_he(y_array)
 
 fig, ax = plt.subplots(1, 2, figsize=(7.2, 3.8))
 
-ax[0].scatter(*y_array.T, s=5)
+ax[0].scatter(*u_array.T, s=5)
 ax[1].plot(t_array, he_array)
 
 ax[1].set_yscale("symlog")
