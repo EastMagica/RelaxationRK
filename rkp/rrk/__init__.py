@@ -6,3 +6,4 @@
 # @project : RelaxationRK
 # software : PyCharm
 
+from rkp.rrk.rrk import rk_relax

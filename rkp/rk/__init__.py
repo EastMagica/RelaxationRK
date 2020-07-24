@@ -6,4 +6,4 @@
 # @project : RelaxationRK
 # software : PyCharm
 
-from rkp.rk.rk4 import rk4_exp as rk4
+from rkp.rk.explicit import rk_exp

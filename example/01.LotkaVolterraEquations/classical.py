@@ -17,7 +17,7 @@ from basicFunc import fun_f, u0
 # Example Functions
 # ------------------
 
-h = 0.85
+dt = 0.85
 step = 100
 
 

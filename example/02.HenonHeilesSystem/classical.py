@@ -16,7 +16,7 @@ from basicFunc import fun_ftu, u01
 # Example Functions
 # ------------------
 
-h = 0.1
+dt = 0.1
 step = 100
 
 

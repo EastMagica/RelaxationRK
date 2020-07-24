@@ -8,7 +8,7 @@
 
 import matplotlib.pyplot as plt
 
-from rkp.ssprk import ssprk33
+from rkp.rk import rk_exp
 
 from basicFunc import fun_f, u01, fun_he1, u02, fun_he2
 
@@ -17,8 +17,8 @@ from basicFunc import fun_f, u01, fun_he1, u02, fun_he2
 # ------------------
 
 t0 = 0.0
-h = 0.1
-step = 500
+dt = 0.01
+step = 3000
 
 u0 = u01
 fun_he = fun_he1
@@ -28,7 +28,7 @@ fun_he = fun_he1
 # ----------
 
 
-t_array, y_array = ssprk33(fun_f, t0, u0, h, step)
+t_array, y_array = rk_exp(fun_f, t0, u0, dt, step, order="ssp3")
 
 he_array = fun_he(y_array)
 
@@ -38,7 +38,7 @@ he_array = fun_he(y_array)
 
 fig, ax = plt.subplots(1, 2, figsize=(8.2, 3.8))
 
-ax[0].scatter(y_array[:, 3], y_array[:, 1], s=5)
+ax[0].scatter(y_array[:, 3], y_array[:, 1], s=1)
 ax[1].plot(t_array, he_array, marker=".")
 
 ax[0].set_xlim(-0.25, 0.25)

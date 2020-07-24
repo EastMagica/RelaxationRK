@@ -20,7 +20,7 @@ def fun_f(t, u):
 
 
 def fun_h(u):
-    return u[..., 0] - np.log(u[..., 0]) + u[..., 1] - np.log(u[..., 1])
+    return u[..., 0] + u[..., 1] - np.log(u[..., 0] * u[..., 1])
 
 
 def fun_he(u):
